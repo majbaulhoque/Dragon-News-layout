@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import imgOne from "../../../assets/1.png"
 import imgTwo from "../../../assets/2.png"
 import imgThree from "../../../assets/3.png"
@@ -20,12 +20,12 @@ const LeftSideNav = () => {
                 <h3 className="text-xl mb-7 font-semibold">All Category</h3>
                 <div className="space-y-6 text-xl">
                     {
-                        categories?.map(category =>(<Link
-                            className="block px-5 " 
+                        categories?.map(category =>(<NavLink
+                            className="block px-5 hover:bg-slate-100 hover:py-2" 
                             to={`/category/${category.id}`}
                             key={category.id}>
                                 {category.name}
-                        </Link>))
+                        </NavLink>))
                     }
                     
                 </div>
