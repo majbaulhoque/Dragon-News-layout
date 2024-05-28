@@ -1,8 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 
 import userDefaultPicture from '../../../assets/user.png'
+import { useContext } from "react";
+import { AuthContext } from "../../../Component/Provider/ContextAuthProvider";
 
 const NavBar = () => {
+
+    const {user, logOut} = useContext(AuthContext);
+
+    const handleSignOut = () =>{
+        logOut()
+        .then()
+        .catch()
+    }
 
     const navLinks = <>
         <ul className="flex gap-3">
@@ -34,7 +44,12 @@ const NavBar = () => {
                 <div className="w-10 rounded-full">
                     <img alt="Tailwind CSS Navbar component" src={userDefaultPicture} />
                 </div>
-                <Link to='/login'><button className="btn">Login</button></Link>
+                {
+                    user ? <button onClick={handleSignOut} className="btn">Sign Out</button>
+                    :
+                    <Link to='/login'><button className="btn">Login</button></Link>
+                }
+                
             </div>
         </div>
     );
