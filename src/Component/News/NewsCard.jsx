@@ -26,9 +26,9 @@ const NewsCard = ({ aNews }) => {
                             <p className="font-semibold text-black">{authorName}</p>
                             <p>{published_date}</p>
                         </div>
-                        <div className="flex text-xl ml-80">
+                        <div className="flex text-xl lg:ml-80">
                             <FaRegBookmark />
-                            <FaShareAlt className="ml-4" />
+                            <FaShareAlt className="lg:ml-4" />
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ const NewsCard = ({ aNews }) => {
                 <img className="w-full py-3 px-5" src={image_url} alt="" />
                 <div className="px-5">
                     {
-                        details.length > 225 ? <p className="border-b py-3">{details.slice(0, 225)}<Link className="text-amber-400 font-bold" to={`/news/${_id}`}> Read More...</Link></p>
+                        details.length > 225 ? <p className="border-b py-3">{details.slice(0, 225)}<Link className="text-amber-400 font-bold" to={`/aNews/${_id}`}> Read More...</Link></p>
                             :
                             <p>{details}</p>
                     }

@@ -6,24 +6,29 @@ export const AuthContext = createContext(null);
 
 
 const ContextAuthProvider = ({children}) => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const createUser = (email, password) =>{
-        return createUserWithEmailAndPassword(auth, email, password)
+        setLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password);
     }
 
     const signIn = (email, password) =>{
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     const logOut = () =>{
+        setLoading(true)
         return signOut(auth)
     }
 
     useEffect(() =>{
         const unSubscribed = onAuthStateChanged(auth, (currentUser) =>{
             console.log('User in the state changed')
-            setUser(currentUser)
+            setUser(currentUser);
+            setLoading(false)
         })
         return () =>{
             unSubscribed()
@@ -32,6 +37,7 @@ const ContextAuthProvider = ({children}) => {
 
     const authInfo = {
         user,
+        loading,
         createUser,
         logOut,
         signIn,
