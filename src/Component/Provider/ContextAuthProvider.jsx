@@ -24,6 +24,7 @@ const ContextAuthProvider = ({children}) => {
         return signOut(auth)
     }
 
+
     useEffect(() =>{
         const unSubscribed = onAuthStateChanged(auth, (currentUser) =>{
             console.log('User in the state changed')

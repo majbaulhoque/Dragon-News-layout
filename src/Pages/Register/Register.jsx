@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import NavBar from "../Shared/Nav Bar/NavBar";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Component/Provider/ContextAuthProvider";
 
 const Register = () => {
+    const [success, setSuccess] = useState('');
+    const [invalid, setInvalid] = useState('');
 
     const {createUser} = useContext(AuthContext)
 
@@ -11,18 +13,25 @@ const Register = () => {
         e.preventDefault()
         const form = new FormData(e.currentTarget);
         const name = form.get('name');
-        const photo = form.get('photo')
         const email = form.get('email');
         const password = form.get('password');
-        console.log(name, photo, email, password)
+        const terms = form.get('terms')
+        console.log(name, email, password, terms)
+
+        setSuccess('');
+        setInvalid('');
 
         // ! Create User
         createUser(email, password)
         .then(result =>{
             console.log(result.user)
+            setSuccess("Account created successfully.")
+            e.target.reset()
         })
         .catch(error =>{
             console.log(error)
+            setInvalid(error.message)
+            e.target.reset()
         })
     }
     return (
@@ -36,12 +45,6 @@ const Register = () => {
                             <span className="label-text">Name</span>
                         </label>
                         <input type="text" name="name" placeholder="Name" className="input input-bordered" required />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Photo URL</span>
-                        </label>
-                        <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered" required />
                     </div>
                     <div className="form-control">
                         <label className="label">
@@ -59,12 +62,18 @@ const Register = () => {
                         </label>
                     </div>
                     <div>
-                        <input className="mr-2" type="checkbox" name="" id="" />
-                        <label htmlFor="">Accept Term & Conditions</label>
+                        <input className="mr-2" type="checkbox" name="" id="terms" />
+                        <label htmlFor="terms">Accept Term & Conditions</label>
                     </div>
                     <div className="form-control mt-4">
                         <button className="btn bg-gray-700 text-white hover:text-black font-bold">Register</button>
                     </div>
+                    {
+                        success && <p className="text-green-500">{success}</p>
+                    }
+                    {
+                        invalid && <p className="text-red-600">{invalid}</p>
+                    }
                 </form>
                 <p className="text-center">Already Have An Account ? <Link className="text-blue-600" to='/login'>Login</Link></p>
             </div>
